@@ -1,6 +1,8 @@
 package com.anuradha.employeeservice.model;
 
+import com.anuradha.employeeservice.dto.JobDepartmentDTO;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,4 +17,10 @@ public class JobDepartment {
     private Long id;
     private String name;
     private String description;
+
+    public static JobDepartment valueOf(JobDepartmentDTO jobDepartmentDTO) {
+        JobDepartment jobDepartment = new JobDepartment();
+        BeanUtils.copyProperties(jobDepartmentDTO, jobDepartment);
+        return jobDepartment;
+    }
 }

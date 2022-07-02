@@ -1,6 +1,8 @@
 package com.anuradha.employeeservice.model;
 
+import com.anuradha.employeeservice.dto.SalaryDetailsDTO;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -18,4 +20,10 @@ public class SalaryDetails {
     @OneToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
+
+    public static SalaryDetails valueOf(SalaryDetailsDTO salaryDetailsDTO) {
+        SalaryDetails salaryDetails = new SalaryDetails();
+        BeanUtils.copyProperties(salaryDetailsDTO, salaryDetails);
+        return salaryDetails;
+    }
 }

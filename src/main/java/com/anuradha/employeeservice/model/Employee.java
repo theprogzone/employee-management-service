@@ -1,6 +1,8 @@
 package com.anuradha.employeeservice.model;
 
+import com.anuradha.employeeservice.dto.EmployeeDTO;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 
@@ -17,4 +19,10 @@ public class Employee {
     @OneToOne
     @JoinColumn(name = "job_id")
     private JobDepartment jobDepartment;
+
+    public static Employee valueOf(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO, employee);
+        return employee;
+    }
 }

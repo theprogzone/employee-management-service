@@ -1,16 +1,29 @@
 package com.anuradha.employeeservice.controller;
 
+import com.anuradha.employeeservice.dto.EmployeeDTO;
+import com.anuradha.employeeservice.service.EmployeeService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/employee/api/v1")
+@RequestMapping("/api/v1/employee")
+@RequiredArgsConstructor
 public class EmployeeController {
+
+    private final EmployeeService employeeService;
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllEmployees() {
-        return new ResponseEntity<String>(null);
+        return new ResponseEntity<List<EmployeeDTO>>(employeeService.findAll(), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        employeeService.save(employeeDTO);
+        return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 }
