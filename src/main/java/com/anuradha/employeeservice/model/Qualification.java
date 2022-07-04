@@ -1,15 +1,20 @@
 package com.anuradha.employeeservice.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
-@Entity
+@MappedSuperclass
+@Getter
+@Setter
 public abstract class Qualification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
-    protected String type;
-    protected String description;
+    private Long id;
+    private String type;
+    private String description;
     @ManyToOne
     @JoinColumn(name = "employee_id")
-    protected Employee employee;
+    private Employee employee;
 }
